@@ -34,9 +34,10 @@ Ball.prototype.moveToR = function() {
         this.onairToR = false;
         
     } else {
+        //this.game.handRight.howmany--;
         this.onairToR = true;
         this.onLeft = false;
-        //this.game.handRight.howmany--;
+        
         //console.log(this.onair + " EN MOVE")
         var gravity = 0.1;
         if (this.y >= 0) {
@@ -69,9 +70,10 @@ Ball.prototype.moveToL = function() {
         this.onairToL = false;
         
     } else {
+        //this.game.handLeft.howmany--;
         this.onairToL = true;
         this.onRight = false;
-        //this.game.handLeft.howmany--;
+        
         //console.log(this.onair + " EN MOVE")
         var gravity = 0.1;
         if (this.y >= 0) {

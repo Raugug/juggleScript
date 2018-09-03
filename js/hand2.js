@@ -64,7 +64,7 @@ HandRight.prototype.movealt = function() {
           
           this.game.balls.forEach(function(ball) {
             if (ball.onRight) {
-              if (KEY_STATUS.up || ball.onairToL) {
+              if (KEY_STATUS.up) { //|| ball.onairToL
                 
                 ball.moveToL(); 
                 ball.onRight = false;

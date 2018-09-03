@@ -64,20 +64,23 @@ HandLeft.prototype.movealt = function() {
         //POR IMPLEMENTAR
         
 
-        this.game.balls.forEach(function(ball) {
-        //for (var i = 0; i < this.howmany; i++){
-            //console.log(i + "FOR");
-            if (ball.onLeft) {    
-                if (KEY_STATUS.w || ball.onairToR) {
+        //this.game.balls.forEach(function(ball) {
+        for (var i = 0; i < this.game.balls.length; i++){ //
+            //console.log(i + "FOR"); //this.game.balls[i]
+            if (this.game.balls[i].onLeft) {    
+                if (KEY_STATUS.w ) { // || ball.onairToR
                     //console.log("if en for");
-                    ball.moveToR();
-                    ball.onLeft = false;
+                    this.game.balls[i].moveToR();
+                    this.game.balls[i].onLeft = false;
                     this.howmany--;
+                    console.log(this.howmany + "RESTA LEFT");
+                    
                 }
+                
             }
-        //} 
+        } 
         
-        }.bind(this));
+        //}.bind(this));
     }
 }
   
