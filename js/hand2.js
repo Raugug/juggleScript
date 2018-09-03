@@ -64,7 +64,7 @@ HandRight.prototype.movealt = function() {
           
           //this.game.balls.forEach(function(ball) {
           for (var i = 0; i < this.game.balls.length; i++){ //
-            if (this.game.balls[i].onRight) {
+            if (this.game.balls[i].onRight && !this.game.balls[i].onairToL && !this.game.balls[i].onairToR && !this.game.balls[i].onLeft) {
               if (KEY_STATUS.up && !this.game.balls[i].onairToL) { //|| ball.onairToL
                 
                 this.game.balls[i].moveToL(); 
