@@ -19,6 +19,7 @@ function HandRight(game) {
     this.h = 88;
   
     this.vy = 1;
+    this.howmany = 1;
   
     //this.bullets = [];
   
@@ -49,23 +50,7 @@ HandRight.prototype.setListeners = function() {
     }.bind(this);
 };
 
-HandRight.prototype.move = function() {
-    //document.addEventListener('keydown', function(event) {
-        
-    document.onkeydown = function(event) {
-        console.log('RIGHT MOVE');
-        if (event.keyCode === LEFT_KEY_RH && this.x >= this.game.canvas.width/2) {
-          this.x -= 10;
-        }
-        if (event.keyCode === RIGHT_KEY_RH && this.x + this.w <= this.game.canvas.width) {
-          this.x += 10;
-        }
-        //POR IMPLEMENTAR
-        if (event.keyCode === TOP_KEY_RH && true) {
-          console.log('Suelta 2');
-        }
-      }.bind(this);
-};
+
 
 HandRight.prototype.movealt = function() {
     if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up) {
@@ -76,11 +61,29 @@ HandRight.prototype.movealt = function() {
             this.x += 5;
           }
           //POR IMPLEMENTAR
-          if (KEY_STATUS.up || this.game.ball.onairToL) {
-            //console.log(this.game.ball.onair);
-            this.game.ball.moveToL();  
-            console.log('Suelta2');
-        }
+          //for (var i = 0; i < this.howmany; i++) {
+          this.game.balls.forEach(function(ball) {
+            if (ball.onRight) {
+              if (KEY_STATUS.up || ball.onairToL) {
+                
+                ball.moveToL(); 
+                ball.onRight = false;
+                this.howmany--;
+                
+              }
+            }
+            
+          }.bind(this));
+            /*if (this.game.balls[i].onRight) {
+              if (KEY_STATUS.up || this.game.balls[i].onairToL) {
+                //console.log(this.game.ball.onair);
+                this.game.balls[i].moveToL(); 
+                this.game.balls[i].onRight = false;
+                this.howmany--;
+              }
+            }*/
+          //}
+          
 
 
     }

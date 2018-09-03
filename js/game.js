@@ -3,6 +3,7 @@ function Game(canvasId) {
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
   this.lastDownTarget;
+  this.balls = [];
 
   this.reset();
 }
@@ -33,6 +34,7 @@ document.onkeyup = function(e) {
     KEY_STATUS[KEY_CODES[keyCode]] = false;
   }
 };
+//var balls = [];
 
 Game.prototype.start = function() {
   this.interval = setInterval(
@@ -75,7 +77,14 @@ Game.prototype.reset = function() {
   this.background = new Background(this);
   this.handLeft = new HandLeft(this);
   this.handRight = new HandRight(this);
-  this.ball = new Ball(this);
+  //Ball(game, x, color, y0)
+  this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false);
+  this.ballY = new Ball(this, this.handLeft.x - 1, '#FF0', this.handLeft.y, true, false);
+  this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true);
+  this.balls.push(this.ballG); 
+  this.balls.push(this.ballY); 
+  this.balls.push(this.ballB);
+  console.log(this.balls); 
   this.framesCounter = 0;
   //this.obstacles = [];
   //this.score = 0;
@@ -84,20 +93,22 @@ Game.prototype.reset = function() {
 Game.prototype.isGrabbedByRight = function(ball) {
   // colisiones genéricas
   // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-  return (
-    this.ball.x >= this.handRight.x &&
-    this.ball.x <= this.handRight.x + this.handRight.w &&
-    this.ball.y >= this.handRight.y
-  );
+  //console.log("ENTRA EN GRABBED BY R");
+  //console.log(ball);
+    return (
+        ball.x >= this.handRight.x &&
+        ball.x <= this.handRight.x + this.handRight.w &&
+        ball.y >= this.handRight.y
+    );
 };
 
 Game.prototype.isGrabbedByLeft = function(ball) {
   // colisiones genéricas
   // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
   return (
-    this.ball.x >= this.handLeft.x &&
-    this.ball.x <= this.handLeft.x + this.handLeft.w &&
-    this.ball.y >= this.handLeft.y
+    ball.x >= this.handLeft.x &&
+    ball.x <= this.handLeft.x + this.handLeft.w &&
+    ball.y >= this.handLeft.y
   );
 };
 
@@ -109,31 +120,38 @@ Game.prototype.draw = function() {
   this.background.draw();
   this.handLeft.draw();
   this.handRight.draw();
-  this.ball.draw();
+  this.ballG.draw();
+  this.ballY.draw();
+  this.ballB.draw();
   //this.obstacles.forEach(function(obstacle) { obstacle.draw(); });
   //this.drawScore();
 };
 
 Game.prototype.moveAll = function() {
-  //this.background.move();
+    
     this.handLeft.movealt();
     this.handRight.movealt();
 
-    if (this.ball.onairToL) {
-    this.ball.moveToL();
-    }
-    if (this.ball.onairToR) {
-    this.ball.moveToR();
-    }
+    this.balls.forEach(function(ball) {
+        
+        if (ball.onairToL) {
+            ball.onRight = false;
+            ball.moveToL();
+        }
+        if (ball.onairToR) {
+            ball.onLeft = false;
+            ball.moveToR();
+        }
+    
+        if (this.isGrabbedByRight(ball)) {
+            ball.onRight = true;
+            //console.log("ENTRA");
+            ball.translateR();
+        }
+        if (this.isGrabbedByLeft(ball)) {
+            ball.onLeft = true;
+            ball.translateL();
+        }
+    }.bind(this));
   
-    if (this.isGrabbedByRight()) {
-      this.ball.translateR();
-    }
-    if (this.isGrabbedByLeft()) {
-      this.ball.translateL();
-    }
-  
-
-  //
-  //this.obstacles.forEach(function(obstacle) { obstacle.move(); });
 };

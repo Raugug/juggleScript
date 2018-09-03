@@ -19,6 +19,7 @@ function HandLeft(game) {
     this.h = 88;
   
     this.vy = 1;
+    this.howmany = 2;
   
     //this.bullets = [];
   
@@ -74,12 +75,18 @@ HandLeft.prototype.movealt = function() {
             this.x += 5;
         }
         //POR IMPLEMENTAR
-        if (KEY_STATUS.w || this.game.ball.onairToR) {
-            //console.log(this.game.ball.onair);
-            this.game.ball.moveToR();
-            //this.game.ball.onair = true; 
-            //console.log('Suelta');
-        }
+        
+        this.game.balls.forEach(function(ball) {
+            if (ball.onLeft) {    
+                if (KEY_STATUS.w || ball.onairToR) {
+                    ball.moveToR();
+                    ball.onLeft = false;
+                    this.howmany--;
+                    
+                }
+            }
+              
+        }.bind(this));
     }
 }
   
