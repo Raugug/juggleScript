@@ -61,7 +61,7 @@ HandRight.prototype.movealt = function() {
             this.x += 5;
           }
           //POR IMPLEMENTAR
-          //for (var i = 0; i < this.howmany; i++) {
+          
           this.game.balls.forEach(function(ball) {
             if (ball.onRight) {
               if (KEY_STATUS.up || ball.onairToL) {
@@ -69,22 +69,11 @@ HandRight.prototype.movealt = function() {
                 ball.moveToL(); 
                 ball.onRight = false;
                 this.howmany--;
+                console.log(this.howmany + "RESTA RIGHT");
                 
               }
             }
             
           }.bind(this));
-            /*if (this.game.balls[i].onRight) {
-              if (KEY_STATUS.up || this.game.balls[i].onairToL) {
-                //console.log(this.game.ball.onair);
-                this.game.balls[i].moveToL(); 
-                this.game.balls[i].onRight = false;
-                this.howmany--;
-              }
-            }*/
-          //}
-          
-
-
     }
 }

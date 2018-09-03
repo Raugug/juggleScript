@@ -137,10 +137,12 @@ Game.prototype.moveAll = function() {
         if (ball.onairToL) {
             ball.onRight = false;
             ball.moveToL();
+            //this.handRight.howmany--;
         }
         if (ball.onairToR) {
             ball.onLeft = false;
             ball.moveToR();
+            //this.handLeft.howmany--;
         }
     
         if (this.isGrabbedByRight(ball)) {

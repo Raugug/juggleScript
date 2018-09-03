@@ -51,20 +51,7 @@ HandLeft.prototype.setListeners = function() {
     }.bind(this);
 };
 
-HandLeft.prototype.move = function() {
-    document.onkeydown = function(event) {
-        if (event.keyCode === LEFT_KEY_LH && this.x >= 0) {
-          this.x -= 10;
-        }
-        if (event.keyCode === RIGHT_KEY_LH && this.x + this.w <= this.game.canvas.width/2) {
-          this.x += 10;
-        }
-        //POR IMPLEMENTAR
-        if (event.keyCode === TOP_KEY_LH && true) {
-          console.log('Suelta');
-        }
-      }.bind(this);
-};
+
 
 HandLeft.prototype.movealt = function() {
     if (KEY_STATUS.a || KEY_STATUS.d || KEY_STATUS.w) {
@@ -76,16 +63,20 @@ HandLeft.prototype.movealt = function() {
         }
         //POR IMPLEMENTAR
         
+
         this.game.balls.forEach(function(ball) {
+        //for (var i = 0; i < this.howmany; i++){
+            //console.log(i + "FOR");
             if (ball.onLeft) {    
                 if (KEY_STATUS.w || ball.onairToR) {
+                    //console.log("if en for");
                     ball.moveToR();
                     ball.onLeft = false;
                     this.howmany--;
-                    
                 }
             }
-              
+        //} 
+        
         }.bind(this));
     }
 }

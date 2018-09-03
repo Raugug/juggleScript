@@ -25,7 +25,7 @@ Ball.prototype.draw = function() {
 }
 
 Ball.prototype.moveToR = function() {
-    //console.log("Ball moves!!");
+    //this.game.handLeft.howmany--;
     if (this.game.isGrabbedByRight(this)){
         console.log("GRABBED BY RIGHT");
         this.game.handRight.howmany++;
@@ -36,7 +36,7 @@ Ball.prototype.moveToR = function() {
     } else {
         this.onairToR = true;
         this.onLeft = false;
-        //this.game.handLeft.howmany--;
+        //this.game.handRight.howmany--;
         //console.log(this.onair + " EN MOVE")
         var gravity = 0.1;
         if (this.y >= 0) {
@@ -60,7 +60,7 @@ Ball.prototype.moveToR = function() {
 }
 
 Ball.prototype.moveToL = function() {
-    //console.log("Ball moves!!");
+    //this.game.handRight.howmany--;
     if (this.game.isGrabbedByLeft(this)){
         console.log("GRABBED BY LEFT");
         this.game.handLeft.howmany++;
@@ -71,7 +71,7 @@ Ball.prototype.moveToL = function() {
     } else {
         this.onairToL = true;
         this.onRight = false;
-        
+        //this.game.handLeft.howmany--;
         //console.log(this.onair + " EN MOVE")
         var gravity = 0.1;
         if (this.y >= 0) {
