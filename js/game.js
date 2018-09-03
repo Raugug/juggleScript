@@ -1,10 +1,39 @@
 function Game(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
-    //this.fps = 60;
+    this.fps = 60;
     this.lastDownTarget;
   
     this.reset();
+}
+
+KEY_CODES = {
+    87: 'w',
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    65: 'a',
+    68: 'd',
+  }
+
+KEY_STATUS = {};
+for (code in KEY_CODES) {
+    KEY_STATUS[ KEY_CODES[ code ]] = false;
+}
+
+document.onkeydown = function(e) {
+    var keyCode = e.keyCode;
+    if (KEY_CODES[keyCode]) {
+      e.preventDefault();
+      KEY_STATUS[KEY_CODES[keyCode]] = true;
+    }
+}
+document.onkeyup = function(e) {
+    var keyCode = e.keyCode;
+    if (KEY_CODES[keyCode]) {
+      e.preventDefault();
+      KEY_STATUS[KEY_CODES[keyCode]] = false;
+    }
 }
 
 Game.prototype.start = function() {
@@ -64,7 +93,7 @@ Game.prototype.draw = function() {
 
 Game.prototype.moveAll = function() {
     //this.background.move();
-    this.handLeft.move();
-    this.handRight.move();
+    this.handLeft.movealt();
+    this.handRight.movealt();
     //this.obstacles.forEach(function(obstacle) { obstacle.move(); });
 };

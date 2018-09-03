@@ -22,7 +22,7 @@ function HandLeft(game) {
   
     //this.bullets = [];
   
-    this.setListeners();
+    //this.setListeners();
 }
   
 var TOP_KEY_LH = 87; //w
@@ -64,15 +64,21 @@ HandLeft.prototype.move = function() {
         }
       }.bind(this);
 };
-/*
-HandLeft.prototype.setListeners = function() {
-    document.onkeydown = function(event) {
-      if (event.keyCode === TOP_KEY && this.y == this.y0) {
-        this.y -= 5;
-        this.vy -= 10;
-      } else if (event.keyCode == SPACE) {
-        this.shoot();
-      }
-    }.bind(this);
-  };*/
+
+HandLeft.prototype.movealt = function() {
+    if (KEY_STATUS.a || KEY_STATUS.d || KEY_STATUS.w) {
+        if (KEY_STATUS.a && this.x >= 0) {
+            this.x -= 5;
+        }
+        if (KEY_STATUS.d && this.x + this.w <= this.game.canvas.width/2) {
+            this.x += 5;
+        }
+        //POR IMPLEMENTAR
+        if (KEY_STATUS.w && true) {
+            console.log('Suelta');
+        }
+
+
+    }
+}
   

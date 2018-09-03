@@ -22,7 +22,7 @@ function HandRight(game) {
   
     //this.bullets = [];
   
-    this.setListeners();
+    //this.setListeners();
 }
 
 var TOP_KEY_RH = 38; //up arrow
@@ -66,3 +66,20 @@ HandRight.prototype.move = function() {
         }
       }.bind(this);
 };
+
+HandRight.prototype.movealt = function() {
+    if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up) {
+        if (KEY_STATUS.left && this.x >= this.game.canvas.width/2) {
+            this.x -= 5;
+          }
+          if (KEY_STATUS.right && this.x + this.w <= this.game.canvas.width) {
+            this.x += 5;
+          }
+          //POR IMPLEMENTAR
+          if (KEY_STATUS.up && true) {
+            console.log('Suelta 2');
+          }
+
+
+    }
+}
