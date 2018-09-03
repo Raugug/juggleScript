@@ -62,13 +62,12 @@ HandLeft.prototype.movealt = function() {
             this.x += 5;
         }
         //POR IMPLEMENTAR
-        
 
         //this.game.balls.forEach(function(ball) {
         for (var i = 0; i < this.game.balls.length; i++){ //
             //console.log(i + "FOR"); //this.game.balls[i]
             if (this.game.balls[i].onLeft) {    
-                if (KEY_STATUS.w ) { // || ball.onairToR
+                if (KEY_STATUS.w && !this.game.balls[i].onairToR) { // || ball.onairToR
                     //console.log("if en for");
                     this.game.balls[i].moveToR();
                     this.game.balls[i].onLeft = false;

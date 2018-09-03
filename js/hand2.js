@@ -62,18 +62,19 @@ HandRight.prototype.movealt = function() {
           }
           //POR IMPLEMENTAR
           
-          this.game.balls.forEach(function(ball) {
-            if (ball.onRight) {
-              if (KEY_STATUS.up) { //|| ball.onairToL
+          //this.game.balls.forEach(function(ball) {
+          for (var i = 0; i < this.game.balls.length; i++){ //
+            if (this.game.balls[i].onRight) {
+              if (KEY_STATUS.up && !this.game.balls[i].onairToL) { //|| ball.onairToL
                 
-                ball.moveToL(); 
-                ball.onRight = false;
+                this.game.balls[i].moveToL(); 
+                this.game.balls[i].onRight = false;
                 this.howmany--;
                 console.log(this.howmany + "RESTA RIGHT");
                 
               }
             }
-            
-          }.bind(this));
+          }
+          //}.bind(this));
     }
 }

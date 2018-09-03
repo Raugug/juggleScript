@@ -151,7 +151,7 @@ Game.prototype.moveAll = function() {
             ball.translateR();
         }
         if (this.isGrabbedByLeft(ball)) {
-            ball.onLeft = true;
+            ball.onLeft = true; 
             ball.translateL();
         }
     }.bind(this));
