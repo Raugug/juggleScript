@@ -53,7 +53,7 @@ HandLeft.prototype.setListeners = function() {
 
 
 
-HandLeft.prototype.movealt = function() {
+HandLeft.prototype.move = function() {
     if (KEY_STATUS.a || KEY_STATUS.d || KEY_STATUS.w) {
         if (KEY_STATUS.a && this.x >= 0) {
             this.x -= 5;
@@ -62,8 +62,133 @@ HandLeft.prototype.movealt = function() {
             this.x += 5;
         }
         //POR IMPLEMENTAR
+        
+        switch (this.howmany){
+            case 1:
+                console.log("ENTRA POR 1");
+                if (KEY_STATUS.w && !this.game.balls[0].onairToR && this.game.balls[0].onLeft) { // || ball.onairToR
+                    console.log("PULSAS Y TIRA LA VERDE");
+                    this.game.balls[0].moveToR();
+                    this.game.balls[0].onLeft = false;
+                    //this.howmany--;
+                    console.log(this.howmany + "RESTA LEFT");
+                    break;
+                    
+                } else if (KEY_STATUS.w && !this.game.balls[2].onairToR && this.game.balls[2].onLeft) { // || ball.onairToR
+                    this.game.balls[2].moveToR();
+                    this.game.balls[2].onLeft = false;
+                    //this.howmany--;
+                    console.log(this.howmany + "RESTA LEFT");
+                    break;
+
+                } else if (KEY_STATUS.w && !this.game.balls[1].onairToR && this.game.balls[1].onLeft) { // || ball.onairToR
+                    this.game.balls[1].moveToR();
+                    this.game.balls[1].onLeft = false;
+                    //this.howmany--;
+                    console.log(this.howmany + "RESTA LEFT");
+                    break;   
+                }
+                break;
+            case 2:
+                console.log("ENTRA POR 2");
+
+                if (KEY_STATUS.w && !this.game.balls[2].onairToR && this.game.balls[2].onLeft) { // || ball.onairToR
+                    this.game.balls[2].moveToR();
+                    this.game.balls[2].onLeft = false;
+                    //this.howmany--;
+                    console.log(this.howmany + "RESTA LEFT"); 
+                    //break;  
+                } else if (KEY_STATUS.w && !this.game.balls[1].onairToR && this.game.balls[1].onLeft) { // || ball.onairToR
+                    console.log("PULSAS Y TIRA LA AMARILLA");
+                    this.game.balls[1].moveToR();
+                    this.game.balls[1].onLeft = false;
+                    //this.howmany--;
+                    console.log(this.howmany + "RESTA LEFT");
+                    //break;   
+                }
+                break;
+            case 3:
+                if (KEY_STATUS.w && !this.game.balls[2].onairToR && this.game.balls[2].onLeft) { // || ball.onairToR
+                    console.log("ENTRA POR 3 Y TIRA AZUL");
+                    this.game.balls[2].moveToR();
+                    this.game.balls[2].onLeft = false;
+                    //this.howmany--;
+                    console.log(this.howmany + "RESTA LEFT");
+                    break;
+                }
+                break;
+        }
+        //if (resta){this.howmany--;}
+        //console.log(this.howmany + " AT LEFT");
+        
+        /*
+        if (this.howmany == 1) {
+            console.log("ENTRA POR 1");
+            if (KEY_STATUS.w && !this.game.balls[0].onairToR && this.game.balls[0].onLeft) { // || ball.onairToR
+                console.log("PULSAS Y TIRA LA VERDE");
+                this.game.balls[0].moveToR();
+                //this.game.balls[0].onLeft = false;
+                this.howmany--;
+                console.log(this.howmany + "RESTA LEFT");
+                
+            } else if (KEY_STATUS.w && !this.game.balls[2].onairToR && this.game.balls[2].onLeft) { // || ball.onairToR
+                
+                //this.game.balls[2].moveToR();
+                //this.game.balls[2].onLeft = false;
+                //this.howmany--;
+                console.log(this.howmany + "RESTA LEFT");   
+            } else if (KEY_STATUS.w && !this.game.balls[1].onairToR && this.game.balls[1].onLeft) { // || ball.onairToR
+                
+                //this.game.balls[1].moveToR();
+                //this.game.balls[1].onLeft = false;
+                //this.howmany--;
+                console.log(this.howmany + "RESTA LEFT");   
+            }
+
+        } else if (this.howmany == 2) {
+            console.log("ENTRA POR 2");
+
+            if (KEY_STATUS.w && !this.game.balls[2].onairToR && this.game.balls[2].onLeft) { // || ball.onairToR
+                
+                //this.game.balls[2].moveToR();
+                //this.game.balls[2].onLeft = false;
+                //this.howmany--;
+                console.log(this.howmany + "RESTA LEFT");   
+            } else if (KEY_STATUS.w && !this.game.balls[1].onairToR && this.game.balls[1].onLeft) { // || ball.onairToR
+                console.log("PULSAS Y TIRA LA AMARILLA");
+                this.game.balls[1].moveToR();
+                //this.game.balls[1].onLeft = false;
+                this.howmany--;
+                console.log(this.howmany + "RESTA LEFT");   
+            }
+
+        } else if (this.howmany == 3) {
+            if (KEY_STATUS.w && !this.game.balls[2].onairToR && this.game.balls[2].onLeft) { // || ball.onairToR
+                console.log("ENTRA POR 3 Y TIRA AZUL");
+                this.game.balls[2].moveToR();
+                this.game.balls[2].onLeft = false;
+                this.howmany--;
+                console.log(this.howmany + "RESTA LEFT");   
+            }
+        }
+        */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //this.game.balls.forEach(function(ball) {
+            /*
         for (var i = 0; i < this.game.balls.length; i++){ //
             //console.log(i + "FOR"); //this.game.balls[i]
             if (this.game.balls[i].onLeft) {    
@@ -77,7 +202,7 @@ HandLeft.prototype.movealt = function() {
                 }
                 
             }
-        } 
+        } */
         
         //}.bind(this));
     }

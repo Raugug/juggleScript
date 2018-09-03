@@ -52,7 +52,7 @@ HandRight.prototype.setListeners = function() {
 
 
 
-HandRight.prototype.movealt = function() {
+HandRight.prototype.move = function() {
     if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up) {
         if (KEY_STATUS.left && this.x >= this.game.canvas.width/2) {
             this.x -= 5;

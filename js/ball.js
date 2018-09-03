@@ -30,6 +30,8 @@ Ball.prototype.moveToR = function() {
         console.log("GRABBED BY RIGHT");
         this.game.handRight.howmany++;
         console.log(this.game.handRight.howmany);
+        this.game.handLeft.howmany--;
+        console.log(this.game.handLeft.howmany + "RESTA LEFT EN MOVETOR");
         this.onRight = true;
         this.onairToR = false;
         
@@ -97,13 +99,11 @@ Ball.prototype.moveToL = function() {
 }
 
 Ball.prototype.translateR = function() {
-    //console.log("GRABBED!!!!!!!!!!!");
-    this.onair = false;
+    //this.onair = false;
     this.x = this.game.handRight.x + this.game.handRight.w / 2;
 }
 
 Ball.prototype.translateL = function() {
-    //console.log("GRABBED!!!!!!!!!!!");
-    this.onair = false;
+    //this.onair = false;
     this.x = this.game.handLeft.x + this.game.handLeft.w / 2;
 }
