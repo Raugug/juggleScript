@@ -74,11 +74,12 @@ HandLeft.prototype.movealt = function() {
             this.x += 5;
         }
         //POR IMPLEMENTAR
-        if (KEY_STATUS.w && true) {
-            console.log('Suelta');
+        if (KEY_STATUS.w || this.game.ball.onairToR) {
+            //console.log(this.game.ball.onair);
+            this.game.ball.moveToR();
+            //this.game.ball.onair = true; 
+            //console.log('Suelta');
         }
-
-
     }
 }
   

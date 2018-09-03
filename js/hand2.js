@@ -76,9 +76,11 @@ HandRight.prototype.movealt = function() {
             this.x += 5;
           }
           //POR IMPLEMENTAR
-          if (KEY_STATUS.up && true) {
-            console.log('Suelta 2');
-          }
+          if (KEY_STATUS.up || this.game.ball.onairToL) {
+            //console.log(this.game.ball.onair);
+            this.game.ball.moveToL();  
+            console.log('Suelta2');
+        }
 
 
     }
