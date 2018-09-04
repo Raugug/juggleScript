@@ -1,18 +1,16 @@
-function Ball(game, x, color, y0, onLeft, onRight, onair) {
+function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL) {
     this.game = game;
     this.x = x;
     this.y = this.game.handLeft.y;
     this.vy = 1;
     this.radius = 20;
     this.color = color;
-    this.onairToR = onair;
-    this.onairToL = false;
+    this.onairToR = onairToR;
+    this.onairToL = onairToL;
     this.onLeft = onLeft;
     this.onRight = onRight;
-    //this.launched = 1;
     this.y0 = y0;
     this.y = this.y0;
-
 }
 
 Ball.prototype.draw = function() {
@@ -29,20 +27,14 @@ Ball.prototype.moveToR = function() {
         this.game.ballsOnair.pop();
         this.game.handRight.ballsIn.push(this);
         console.log(this.game.handRight.ballsIn);
-        //debugger;
-        //this.game.handRight.howmany++;
-        //console.log(this.game.handRight.howmany);
-        //this.game.handLeft.howmany--;
-        //console.log(this.game.handLeft.howmany + " RESTA LEFT");
         this.onRight = true;
         this.onairToR = false;
         
     } else {
-        
         var gravity = 0.1;
         if (this.y >= 0) {
             this.y -= 11;
-            var variation = Math.random() * (10 + 2) - 2;
+            var variation = Math.random() * (9 + 1)-1;
             this.x += variation;
             //SOLO LE SUMA LA GRAVEDAD CUANDO ESTÁ EN EL AIRE
             if (this.y >= this.y0) {
@@ -62,19 +54,14 @@ Ball.prototype.moveToL = function() {
         this.game.ballsOnair.pop();
         this.game.handLeft.ballsIn.push(this);
         console.log(this.game.handLeft.ballsIn);
-        //this.game.handLeft.howmany++;
-        //console.log(this.game.handLeft.howmany);
-        //this.game.handLeft.howmany--;
-        //console.log(this.game.handLeft.howmany + " RESTA LEFT");
         this.onLeft = true;
         this.onairToL = false;
         
-    } else {
-        
+    } else { 
         var gravity = 0.1;
         if (this.y >= 0) {
             this.y -= 11;
-            var variation = Math.random() * (10 + 2) - 2;
+            var variation = Math.random() * (9 + 1) - 1;
             this.x -= variation;
             //SOLO LE SUMA LA GRAVEDAD CUANDO ESTÁ EN EL AIRE
             if (this.y >= this.y0) {
@@ -91,7 +78,6 @@ Ball.prototype.moveToL = function() {
 Ball.prototype.translateR = function() {
     this.x = this.game.handRight.x + this.game.handRight.w / 2;
 }
-
 Ball.prototype.translateL = function() {
     this.x = this.game.handLeft.x + this.game.handLeft.w / 2;
 }
