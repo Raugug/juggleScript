@@ -2,7 +2,6 @@ function Game(canvasId) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
-  this.lastDownTarget;
   this.balls = [];
 
   this.reset();
@@ -44,14 +43,14 @@ Game.prototype.start = function() {
       this.framesCounter++;
 
       // controlamos que frameCounter no sea superior a 1000
-      if (this.framesCounter > 1000) {
-        this.framesCounter = 0;
-      }
+      //if (this.framesCounter > 1000) {
+      //  this.framesCounter = 0;
+      //}
       this.score += 0.01;
 
       this.moveAll();
       this.draw();
-      /*if (this.isCollision()) {
+      /*if () {
         this.gameOver();
       }*/
     }.bind(this),
@@ -79,8 +78,7 @@ Game.prototype.reset = function() {
 };
 
 Game.prototype.isGrabbedByRight = function(ball) {
-  // colisiones genéricas
-  // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
+  // colisiones
     return (
         ball.x >= this.handRight.x &&
         ball.x <= this.handRight.x + this.handRight.w &&
@@ -89,8 +87,7 @@ Game.prototype.isGrabbedByRight = function(ball) {
 };
 
 Game.prototype.isGrabbedByLeft = function(ball) {
-  // colisiones genéricas
-  // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
+  // colisiones 
   return (
     ball.x >= this.handLeft.x &&
     ball.x <= this.handLeft.x + this.handLeft.w &&

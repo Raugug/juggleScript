@@ -3,25 +3,18 @@ function HandLeft(game) {
    
     this.x = this.game.canvas.width * 0.1;
   
-    // guardar posición original (suelo)
+    // guardar posición original
     this.y0 = this.game.canvas.height * 0.8;
     this.y = this.y0;
   
     this.img = new Image();
     this.img.src = 'img/Left1.png';
-    
-    // número de imágenes diferentes
-    //this.img.frames = 3;
-    //this.img.frameIndex = 0;
-  
     // medidas de la imagen a representar en el canvas
     this.w = 100;
     this.h = 88;
   
     this.vy = 1;
     this.howmany = 2;
-  
-    //this.bullets = [];
   
     //this.setListeners();
 }
@@ -61,7 +54,7 @@ HandLeft.prototype.move = function() {
         if (KEY_STATUS.d && this.x + this.w <= this.game.canvas.width/2) {
             this.x += 5;
         }
-        //POR IMPLEMENTAR
+        //REPASAR: BUSCAR ALTERNATIVAS
         
         switch (this.howmany){
             case 1:
@@ -172,20 +165,6 @@ HandLeft.prototype.move = function() {
             }
         }
         */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //this.game.balls.forEach(function(ball) {
             /*
