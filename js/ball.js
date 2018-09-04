@@ -21,7 +21,6 @@ Ball.prototype.draw = function() {
     this.game.ctx.closePath();
     this.game.ctx.fillStyle = this.color;
     this.game.ctx.fill();
-
 }
 
 Ball.prototype.moveToR = function() {
@@ -29,8 +28,8 @@ Ball.prototype.moveToR = function() {
         console.log("GRABBED BY RIGHT");
         this.game.handRight.howmany++;
         console.log(this.game.handRight.howmany);
-        //this.game.handLeft.howmany--;
-        //console.log(this.game.handLeft.howmany + " RESTA LEFT");
+        this.game.handLeft.howmany--;
+        console.log(this.game.handLeft.howmany + " RESTA LEFT");
         this.onRight = true;
         this.onairToR = false;
         
@@ -39,56 +38,42 @@ Ball.prototype.moveToR = function() {
         var gravity = 0.1;
         if (this.y >= 0) {
             this.y -= 11;
-            //this.vy -= 2;
             var variation = Math.random() * (10 + 2) - 2;
-            //console.log(variation);
             this.x += variation;
             //SOLO LE SUMA LA GRAVEDAD CUANDO ESTÁ EN EL AIRE
             if (this.y >= this.y0) {
                 this.vy = 1;
                 this.y = this.y0;
             } else {
-                
-                //console.log("!!");
                 this.vy += gravity;
                 this.y += this.vy;
             }
         }
     }
-    if (!this.game.isGrabbedByLeft(this)){
-        //this.game.handLeft.launched = 0;
-    }
 }
 
 Ball.prototype.moveToL = function() {
-    //this.game.handRight.howmany--;
     if (this.game.isGrabbedByLeft(this)){
         console.log("GRABBED BY LEFT");
         this.game.handLeft.howmany++;
         console.log(this.game.handLeft.howmany);
+        //this.game.handLeft.howmany--;
+        //console.log(this.game.handLeft.howmany + " RESTA LEFT");
         this.onLeft = true;
         this.onairToL = false;
         
     } else {
-        //this.game.handLeft.howmany--;
-        this.onairToL = true;
-        this.onRight = false;
         
-        //console.log(this.onair + " EN MOVE")
         var gravity = 0.1;
         if (this.y >= 0) {
             this.y -= 11;
-            //this.vy -= 2;
             var variation = Math.random() * (10 + 2) - 2;
-            //console.log(variation);
             this.x -= variation;
             //SOLO LE SUMA LA GRAVEDAD CUANDO ESTÁ EN EL AIRE
             if (this.y >= this.y0) {
                 this.vy = 1;
                 this.y = this.y0;
             } else {
-                
-                //console.log("!!");
                 this.vy += gravity;
                 this.y += this.vy;
             }
@@ -97,11 +82,9 @@ Ball.prototype.moveToL = function() {
 }
 
 Ball.prototype.translateR = function() {
-    //this.onair = false;
     this.x = this.game.handRight.x + this.game.handRight.w / 2;
 }
 
 Ball.prototype.translateL = function() {
-    //this.onair = false;
     this.x = this.game.handLeft.x + this.game.handLeft.w / 2;
 }

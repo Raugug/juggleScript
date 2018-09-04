@@ -2,7 +2,6 @@ function HandRight(game) {
     this.game = game;
    
     this.x = this.game.canvas.width * 0.8;
-  
     // guardar posición original
     this.y0 = this.game.canvas.height * 0.8;
     this.y = this.y0;
@@ -12,11 +11,9 @@ function HandRight(game) {
     // medidas de la imagen a representar en el canvas
     this.w = 100;
     this.h = 88;
-  
     this.vy = 1;
     this.howmany = 1;
-  
-    //this.setListeners();
+    this.ballsIn = [];
 }
 
 var TOP_KEY_RH = 38; //up arrow
@@ -60,8 +57,9 @@ HandRight.prototype.move = function() {
             if (this.game.balls[i].onRight && !this.game.balls[i].onairToL && !this.game.balls[i].onairToR && !this.game.balls[i].onLeft) {
               if (KEY_STATUS.up && !this.game.balls[i].onairToL) { //|| ball.onairToL
                 
-                this.game.balls[i].moveToL(); 
+                //this.game.balls[i].moveToL(); 
                 this.game.balls[i].onRight = false;
+                this.game.balls[i].onairToL = true;
                 this.howmany--;
                 console.log(this.howmany + "RESTA RIGHT");
                 

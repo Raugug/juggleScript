@@ -33,7 +33,6 @@ document.onkeyup = function(e) {
     KEY_STATUS[KEY_CODES[keyCode]] = false;
   }
 };
-//var balls = [];
 
 Game.prototype.start = function() {
   this.interval = setInterval(
@@ -70,9 +69,12 @@ Game.prototype.reset = function() {
   this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false);
   this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false);
   this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true);
-  this.balls.push(this.ballG); 
-  this.balls.push(this.ballY); 
-  this.balls.push(this.ballB); 
+  //this.balls.push(this.ballG); 
+  //this.balls.push(this.ballY); 
+  //this.balls.push(this.ballB);
+  this.handLeft.ballsIn.push(this.ballG);
+  this.handLeft.ballsIn.push(this.ballY);
+  this.handRight.ballsIn.push(this.ballB);
   this.framesCounter = 0;
   //this.score = 0;
 };
@@ -113,24 +115,25 @@ Game.prototype.moveAll = function() {
     this.handLeft.move();
     this.handRight.move();
 
-    this.balls.forEach(function(ball) {
-        
+    this.balls.forEach(function(ball) {   
         if (ball.onairToL) {
+            //this.handRight.ballsIn.pop().
             ball.onRight = false;
             ball.moveToL();
         }
-        if (ball.onairToR) {
-            
+        if (ball.onairToR) { 
+            //this.handLeft.ballsIn.pop();           
             ball.onLeft = false;
             ball.moveToR();
         }
         
         if (this.isGrabbedByRight(ball)) {
+            this.handRight.ballsIn.push(ball);
             ball.onRight = true;
             ball.translateR();
         }
         if (this.isGrabbedByLeft(ball)) {
-            //this.handLeft.launched = 0;
+            this.handLeft.ballsIn.push(ball);
             ball.onLeft = true; 
             ball.translateL();
         }
