@@ -68,7 +68,7 @@ Game.prototype.reset = function() {
   this.handRight = new HandRight(this);
   
   this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false);
-  this.ballY = new Ball(this, this.handLeft.x - 1, '#FF0', this.handLeft.y, true, false);
+  this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false);
   this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true);
   this.balls.push(this.ballG); 
   this.balls.push(this.ballY); 
@@ -110,7 +110,6 @@ Game.prototype.draw = function() {
 };
 
 Game.prototype.moveAll = function() {
-    
     this.handLeft.move();
     this.handRight.move();
 
@@ -121,6 +120,7 @@ Game.prototype.moveAll = function() {
             ball.moveToL();
         }
         if (ball.onairToR) {
+            
             ball.onLeft = false;
             ball.moveToR();
         }
@@ -130,6 +130,7 @@ Game.prototype.moveAll = function() {
             ball.translateR();
         }
         if (this.isGrabbedByLeft(ball)) {
+            //this.handLeft.launched = 0;
             ball.onLeft = true; 
             ball.translateL();
         }

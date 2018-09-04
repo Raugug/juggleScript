@@ -9,7 +9,7 @@ function Ball(game, x, color, y0, onLeft, onRight) {
     this.onairToL = false;
     this.onLeft = onLeft;
     this.onRight = onRight;
-
+    //this.launched = 1;
     this.y0 = y0;
     this.y = this.y0;
 
@@ -25,22 +25,17 @@ Ball.prototype.draw = function() {
 }
 
 Ball.prototype.moveToR = function() {
-    //this.game.handLeft.howmany--;
     if (this.game.isGrabbedByRight(this)){
         console.log("GRABBED BY RIGHT");
         this.game.handRight.howmany++;
         console.log(this.game.handRight.howmany);
-        this.game.handLeft.howmany--;
-        console.log(this.game.handLeft.howmany + "RESTA LEFT EN MOVETOR");
+        //this.game.handLeft.howmany--;
+        //console.log(this.game.handLeft.howmany + " RESTA LEFT");
         this.onRight = true;
         this.onairToR = false;
         
     } else {
-        //this.game.handRight.howmany--;
-        this.onairToR = true;
-        this.onLeft = false;
         
-        //console.log(this.onair + " EN MOVE")
         var gravity = 0.1;
         if (this.y >= 0) {
             this.y -= 11;
@@ -59,6 +54,9 @@ Ball.prototype.moveToR = function() {
                 this.y += this.vy;
             }
         }
+    }
+    if (!this.game.isGrabbedByLeft(this)){
+        //this.game.handLeft.launched = 0;
     }
 }
 
