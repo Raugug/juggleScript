@@ -51,21 +51,15 @@ HandRight.prototype.move = function() {
             this.x += 5;
           }
           //POR IMPLEMENTAR
-          
-          //this.game.balls.forEach(function(ball) {
-          for (var i = 0; i < this.game.balls.length; i++){ //
-            if (this.game.balls[i].onRight && !this.game.balls[i].onairToL && !this.game.balls[i].onairToR && !this.game.balls[i].onLeft) {
-              if (KEY_STATUS.up && !this.game.balls[i].onairToL) { //|| ball.onairToL
-                
-                //this.game.balls[i].moveToL(); 
-                this.game.balls[i].onRight = false;
-                this.game.balls[i].onairToL = true;
-                this.howmany--;
-                console.log(this.howmany + "RESTA RIGHT");
-                
-              }
+          if (KEY_STATUS.up) {
+            if (this.ballsIn.length == 1){
+                var ballonair = this.ballsIn.pop();
+                ballonair.onRight = false;
+                ballonair.onairToL = true;
+                this.game.ballsOnair.push(ballonair);
             }
+
           }
-          //}.bind(this));
     }
 }
+          

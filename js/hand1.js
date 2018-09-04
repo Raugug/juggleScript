@@ -55,12 +55,16 @@ HandLeft.prototype.move = function() {
         //REPASAR: BUSCAR ALTERNATIVAS
     //}
         if (KEY_STATUS.w) {
-            if (this.ballsIn.length > 0){
+            if (this.ballsIn.length == 1){
                 var ballonair = this.ballsIn.pop();
+                ballonair.onLeft = false;
                 ballonair.onairToR = true;
-                this.game.balls.push(ballonair);
+                this.game.ballsOnair.push(ballonair);
             }
+
         }
+    }
+}
         /*
         if (KEY_STATUS.w)  {           
             switch (this.howmany){
@@ -134,8 +138,7 @@ HandLeft.prototype.move = function() {
                     break;
             }
         }*/
-    }
-}
+
             /*
             switch (this.howmany){
                 case 1:

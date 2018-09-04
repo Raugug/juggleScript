@@ -1,11 +1,11 @@
-function Ball(game, x, color, y0, onLeft, onRight) {
+function Ball(game, x, color, y0, onLeft, onRight, onair) {
     this.game = game;
     this.x = x;
     this.y = this.game.handLeft.y;
     this.vy = 1;
     this.radius = 20;
     this.color = color;
-    this.onairToR = false;
+    this.onairToR = onair;
     this.onairToL = false;
     this.onLeft = onLeft;
     this.onRight = onRight;
@@ -26,10 +26,14 @@ Ball.prototype.draw = function() {
 Ball.prototype.moveToR = function() {
     if (this.game.isGrabbedByRight(this)){
         console.log("GRABBED BY RIGHT");
-        this.game.handRight.howmany++;
-        console.log(this.game.handRight.howmany);
-        this.game.handLeft.howmany--;
-        console.log(this.game.handLeft.howmany + " RESTA LEFT");
+        this.game.ballsOnair.pop();
+        this.game.handRight.ballsIn.push(this);
+        console.log(this.game.handRight.ballsIn);
+        //debugger;
+        //this.game.handRight.howmany++;
+        //console.log(this.game.handRight.howmany);
+        //this.game.handLeft.howmany--;
+        //console.log(this.game.handLeft.howmany + " RESTA LEFT");
         this.onRight = true;
         this.onairToR = false;
         
@@ -55,8 +59,11 @@ Ball.prototype.moveToR = function() {
 Ball.prototype.moveToL = function() {
     if (this.game.isGrabbedByLeft(this)){
         console.log("GRABBED BY LEFT");
-        this.game.handLeft.howmany++;
-        console.log(this.game.handLeft.howmany);
+        this.game.ballsOnair.pop();
+        this.game.handLeft.ballsIn.push(this);
+        console.log(this.game.handLeft.ballsIn);
+        //this.game.handLeft.howmany++;
+        //console.log(this.game.handLeft.howmany);
         //this.game.handLeft.howmany--;
         //console.log(this.game.handLeft.howmany + " RESTA LEFT");
         this.onLeft = true;

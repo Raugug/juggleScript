@@ -3,6 +3,7 @@ function Game(canvasId) {
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
   this.balls = [];
+  this.ballsOnair = [];
 
   this.reset();
 }
@@ -49,9 +50,9 @@ Game.prototype.start = function() {
 
       this.moveAll();
       this.draw();
-      /*if () {
+      if (this.handLeft.ballsIn.length > 1 ||this.handRight.ballsIn.length > 1) {
         this.gameOver();
-      }*/
+      }
     }.bind(this),
     1000 / this.fps
   );
@@ -66,14 +67,14 @@ Game.prototype.reset = function() {
   this.handLeft = new HandLeft(this);
   this.handRight = new HandRight(this);
   
-  this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false);
-  this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false);
-  this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true);
-  //this.balls.push(this.ballG); 
-  //this.balls.push(this.ballY); 
-  //this.balls.push(this.ballB);
+  this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false, false);
+  this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false, true);
+  this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true, false);
+  this.balls.push(this.ballG); 
+  this.balls.push(this.ballY); 
+  this.balls.push(this.ballB);
   this.handLeft.ballsIn.push(this.ballG);
-  this.handLeft.ballsIn.push(this.ballY);
+  this.ballsOnair.push(this.ballY);
   this.handRight.ballsIn.push(this.ballB);
   this.framesCounter = 0;
   //this.score = 0;
@@ -117,24 +118,16 @@ Game.prototype.moveAll = function() {
 
     this.balls.forEach(function(ball) {   
         if (ball.onairToL) {
-            //this.handRight.ballsIn.pop().
-            ball.onRight = false;
             ball.moveToL();
         }
         if (ball.onairToR) { 
-            //this.handLeft.ballsIn.pop();           
-            ball.onLeft = false;
             ball.moveToR();
         }
         
         if (this.isGrabbedByRight(ball)) {
-            this.handRight.ballsIn.push(ball);
-            ball.onRight = true;
             ball.translateR();
         }
         if (this.isGrabbedByLeft(ball)) {
-            this.handLeft.ballsIn.push(ball);
-            ball.onLeft = true; 
             ball.translateL();
         }
 
