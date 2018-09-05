@@ -1,12 +1,13 @@
 function Game(canvasId, menu) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = this.canvas.getContext("2d");
-  //this.canvas = menu.menu;
-  //this.ctx = menu.ctx;
   this.menu = menu;
   this.fps = 50;
   this.balls = [];
   this.ballsOnair = [];
+  this.music = new Audio("audio/circusTheme.mp3");
+  this.crowd = new Audio("audio/crowd.mp3");
+  this.boo = new Audio("audio/boo.mp3");
 
   this.reset();
   this.SetListeners();
@@ -46,16 +47,17 @@ Game.prototype.start = function() {
   this.interval = setInterval(
     function() {
       this.clear();
-
+      this.music.play();
+      this.music.loop = true;
       this.framesCounter++;
-      //controlamos que frameCounter no sea superior a 1000
+      //FramesCounter Control
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
       }
       this.score += 0.05;
-      //console.log(this.score);
+      //ADDING EXTRA BALL
       if (this.score > 50 && this.score <= 50.05){
-        console.log("CREA 4a")
+        this.crowd.play();
         this.createForth();
       }
       
@@ -63,10 +65,11 @@ Game.prototype.start = function() {
       this.draw();
       //GAVE OVER CONDITIONS
       if (this.handLeft.ballsIn.length > 1 || this.handRight.ballsIn.length > 1) {
+        this.boo.play();
         this.gameOver();
       }
       this.balls.forEach(function(ball) {
-        if (this.outOfScreen(ball)) {this.gameOver();} 
+        if (this.outOfScreen(ball)) {this.boo.play(); this.gameOver();} 
       }.bind(this))
 
     }.bind(this),
@@ -75,6 +78,7 @@ Game.prototype.start = function() {
 };
 
 Game.prototype.stop = function() {
+  this.music.pause();
   clearInterval(this.interval);
 };
 
@@ -82,16 +86,12 @@ Game.prototype.gameOver = function() {
   this.stop();
   this.menu.start();
   
-  //if(confirm("GAME OVER. Play again?")) {
-  //    this.reset();
-  //    this.start();
-  //}
 };
 
 Game.prototype.reset = function() {
   this.background = new Background(this, 0);
-  this.handLeft = new HandLeft(this);
-  this.handRight = new HandRight(this);
+  this.handLeft = new Hand(this, 'left');
+  this.handRight = new Hand(this, 'right');
 
   for (code in KEY_CODES) {
     KEY_STATUS[KEY_CODES[code]] = false;

@@ -36,7 +36,7 @@ Ball.prototype.moveToR = function() {
             this.y -= 11;
             var variation = Math.random() * (9 + 1)-1;
             this.x += variation;
-            //SOLO LE SUMA LA GRAVEDAD CUANDO ESTÁ EN EL AIRE
+            //GRAVITY ON AIR
             if (this.y >= this.y0) {
                 this.vy = 1;
                 this.y = this.y0;
@@ -63,7 +63,7 @@ Ball.prototype.moveToL = function() {
             this.y -= 11;
             var variation = Math.random() * (9 + 1) - 1;
             this.x -= variation;
-            //SOLO LE SUMA LA GRAVEDAD CUANDO ESTÁ EN EL AIRE
+            //GRAVITY ON AIR
             if (this.y >= this.y0) {
                 this.vy = 1;
                 this.y = this.y0;

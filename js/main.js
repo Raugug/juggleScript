@@ -2,7 +2,7 @@ function Main(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
     this.fps = 60;
-  
+    this.music = new Audio("audio/intro.mp3");
     this.reset();
     this.SetListeners();
 };
@@ -40,6 +40,8 @@ Main.prototype.start = function() {
     this.interval = setInterval(
       function() {
         this.clear();
+        this.music.play();
+        this.music.loop = true;
         this.framesCounter++;
         //controlamos que frameCounter no sea superior a 1000
         if (this.framesCounter > 1000) {
@@ -56,6 +58,7 @@ Main.prototype.start = function() {
 
 Main.prototype.stop = function() {
     clearInterval(this.interval);
+    this.music.pause();
 };
 
 Main.prototype.reset = function() {
