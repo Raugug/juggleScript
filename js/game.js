@@ -6,6 +6,7 @@ function Game(canvasId) {
   this.ballsOnair = [];
 
   this.reset();
+  this.SetListeners();
 }
 
 var KEY_CODES = {
@@ -16,24 +17,26 @@ var KEY_CODES = {
   65: "a",
   68: "d"
 };
-
 var KEY_STATUS = {};
-for (code in KEY_CODES) {
-  KEY_STATUS[KEY_CODES[code]] = false;
-}
 
-document.onkeydown = function(e) {
-  var keyCode = e.keyCode;
-  if (KEY_CODES[keyCode]) {
-    KEY_STATUS[KEY_CODES[keyCode]] = true;
+Game.prototype.SetListeners = function() {
+  for (code in KEY_CODES) {
+  KEY_STATUS[KEY_CODES[code]] = false;
   }
-};
-document.onkeyup = function(e) {
-  var keyCode = e.keyCode;
-  if (KEY_CODES[keyCode]) {
-    KEY_STATUS[KEY_CODES[keyCode]] = false;
-  }
-};
+  document.onkeydown = function(e) {
+    var keyCode = e.keyCode;
+    if (KEY_CODES[keyCode]) {
+      KEY_STATUS[KEY_CODES[keyCode]] = true;
+    }
+  };
+  document.onkeyup = function(e) {
+    var keyCode = e.keyCode;
+    if (KEY_CODES[keyCode]) {
+      KEY_STATUS[KEY_CODES[keyCode]] = false;
+    }
+  };
+
+}
 
 Game.prototype.start = function() {
   this.interval = setInterval(
@@ -53,12 +56,10 @@ Game.prototype.start = function() {
       if (this.handLeft.ballsIn.length > 1 || this.handRight.ballsIn.length > 1) {
         this.gameOver();
       }
-      /*
-      if (this.balls.some(function(ball) {
-        return (ball.x > 1280 || ball.x < 0 ||ball.y > 800 || ball.y < 0);
-      })) {
-        this.gameOver();
-      }*/
+      this.balls.forEach(function(ball) {
+        if (this.outOfScreen(ball)) {this.gameOver();} 
+      }.bind(this))
+
     }.bind(this),
     1000 / this.fps
   );
@@ -72,8 +73,8 @@ Game.prototype.gameOver = function() {
   this.stop();
   
   if(confirm("GAME OVER. Play again?")) {
-    this.reset();
-    this.start();
+      this.reset();
+      this.start();
   }
 };
 
@@ -81,7 +82,11 @@ Game.prototype.reset = function() {
   this.background = new Background(this);
   this.handLeft = new HandLeft(this);
   this.handRight = new HandRight(this);
-  
+
+  for (code in KEY_CODES) {
+    KEY_STATUS[KEY_CODES[code]] = false;
+  }
+
   this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false, false, false);
   this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false, true, false);
   this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true, false, false);
@@ -113,6 +118,16 @@ Game.prototype.isGrabbedByLeft = function(ball) {
     ball.x >= this.handLeft.x &&
     ball.x <= this.handLeft.x + this.handLeft.w &&
     ball.y >= this.handLeft.y
+  );
+};
+
+Game.prototype.outOfScreen = function(ball) {
+  // colishions BORDERS
+  return (
+    ball.x - ball.radius/2 <= 0 ||
+    ball.x + ball.radius/2 >= 1280 ||
+    ball.y - ball.radius/2 <= 0 ||
+    ball.y + ball.radius/2 >= 800
   );
 };
 
