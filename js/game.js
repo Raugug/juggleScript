@@ -1,6 +1,9 @@
 function Game(canvasId) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = this.canvas.getContext("2d");
+  //this.canvas = menu.menu;
+  //this.ctx = menu.ctx;
+
   this.fps = 60;
   this.balls = [];
   this.ballsOnair = [];
@@ -15,7 +18,8 @@ var KEY_CODES = {
   38: "up",
   39: "right",
   65: "a",
-  68: "d"
+  68: "d",
+  13: "enter"
 };
 var KEY_STATUS = {};
 
@@ -48,8 +52,13 @@ Game.prototype.start = function() {
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
       }
-      this.score += 0.01;
-
+      this.score += 0.05;
+      //console.log(this.score);
+      if (this.score > 50 && this.score <= 50.05){
+        console.log("CREA 4a")
+        this.createForth();
+      }
+      
       this.moveAll();
       this.draw();
 
@@ -79,7 +88,7 @@ Game.prototype.gameOver = function() {
 };
 
 Game.prototype.reset = function() {
-  this.background = new Background(this);
+  this.background = new Background(this, 0);
   this.handLeft = new HandLeft(this);
   this.handRight = new HandRight(this);
 
@@ -90,18 +99,24 @@ Game.prototype.reset = function() {
   this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false, false, false);
   this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false, true, false);
   this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true, false, false);
-  this.ballP = new Ball(this, this.handRight.x, '#F6F', (this.handRight.y - 1), false, true, false, true);
+  //this.ballP = new Ball(this, this.handRight.x, '#F6F', (this.handRight.y - 1), false, true, false, true);
   this.balls.push(this.ballG); 
   this.balls.push(this.ballY); 
   this.balls.push(this.ballB);
-  this.balls.push(this.ballP);
+  //this.balls.push(this.ballP);
   this.handLeft.ballsIn.push(this.ballG);
   this.ballsOnair.push(this.ballY);
-  this.ballsOnair.push(this.ballP);
+  //this.ballsOnair.push(this.ballP);
   this.handRight.ballsIn.push(this.ballB);
   this.framesCounter = 0;
-  //this.score = 0;
+  this.score = 0;
 };
+
+Game.prototype.createForth = function() {
+  this.ballP = new Ball(this, this.handRight.x, '#F6F', (this.handRight.y - 1), false, true, false, true);
+  this.balls.push(this.ballP);
+  this.ballsOnair.push(this.ballP);
+}
 
 Game.prototype.isGrabbedByRight = function(ball) {
   // colishions RIGHT
@@ -142,9 +157,15 @@ Game.prototype.draw = function() {
   this.ballG.draw();
   this.ballY.draw();
   this.ballB.draw();
-  this.ballP.draw();
-  //this.drawScore();
+  if (this.score > 50) {this.ballP.draw();}
+  this.drawScore();
 };
+
+Game.prototype.drawScore = function() {
+  this.ctx.font = "30px sans-serif";
+  this.ctx.fillStyle = "white";
+  this.ctx.fillText(Math.floor(this.score), 50, 50);
+}
 
 Game.prototype.moveAll = function() {
     this.handLeft.move();
