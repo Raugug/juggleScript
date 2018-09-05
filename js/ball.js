@@ -26,7 +26,6 @@ Ball.prototype.moveToR = function() {
         console.log("GRABBED BY RIGHT");
         this.game.ballsOnair.pop();
         this.game.handRight.ballsIn.push(this);
-        console.log(this.game.handRight.ballsIn);
         this.onRight = true;
         this.onairToR = false;
         
@@ -53,7 +52,6 @@ Ball.prototype.moveToL = function() {
         console.log("GRABBED BY LEFT");
         this.game.ballsOnair.pop();
         this.game.handLeft.ballsIn.push(this);
-        console.log(this.game.handLeft.ballsIn);
         this.onLeft = true;
         this.onairToL = false;
         

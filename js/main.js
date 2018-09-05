@@ -43,7 +43,7 @@ Main.prototype.start = function() {
         this.music.play();
         this.music.loop = true;
         this.framesCounter++;
-        //controlamos que frameCounter no sea superior a 1000
+        //frameCounter control
         if (this.framesCounter > 1000) {
           this.framesCounter = 0;
         }

@@ -55,10 +55,14 @@ Game.prototype.start = function() {
         this.framesCounter = 0;
       }
       this.score += 0.05;
-      //ADDING EXTRA BALL
+      //ADDING EXTRA BALLS
       if (this.score > 50 && this.score <= 50.05){
         this.crowd.play();
         this.createForth();
+      }
+      if (this.score > 100 && this.score <= 100.05){
+        this.crowd.play();
+        this.createFifth();
       }
       
       this.moveAll();
@@ -119,6 +123,12 @@ Game.prototype.createForth = function() {
   this.ballsOnair.push(this.ballP);
 }
 
+Game.prototype.createFifth = function() {
+  this.ballO = new Ball(this, this.handRight.x, '#F93', (this.handRight.y - 1), false, true, false, true);
+  this.balls.push(this.ballO);
+  this.ballsOnair.push(this.ballO);
+}
+
 Game.prototype.isGrabbedByRight = function(ball) {
   // colishions RIGHT
     return (
@@ -159,6 +169,8 @@ Game.prototype.draw = function() {
   this.ballY.draw();
   this.ballB.draw();
   if (this.score > 50) {this.ballP.draw();}
+  this.drawScore();
+  if (this.score > 50) {this.ballO.draw();}
   this.drawScore();
 };
 

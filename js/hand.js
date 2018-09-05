@@ -6,19 +6,19 @@ function Hand(game, side) {
     //POSITION BY SIDE
     if (this.side == 'left'){
         this.x = this.game.canvas.width * 0.1; 
-        //posición original
+        //pos orig
         this.y0 = this.game.canvas.height * 0.8;
         this.y = this.y0;
         this.img.src = this.srcArray[0];
     }
     if (this.side == 'right'){
         this.x = this.game.canvas.width * 0.8;
-        //posición original
+        //pos orig
         this.y0 = this.game.canvas.height * 0.8;
         this.y = this.y0;
         this.img.src = this.srcArray[1];
     }
-    // medidas de la imagen
+    // measure
     this.w = 100;
     this.h = 88;
     this.vy = 1;
