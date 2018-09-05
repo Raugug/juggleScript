@@ -1,9 +1,9 @@
-function Game(canvasId) {
+function Game(canvasId, menu) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = this.canvas.getContext("2d");
   //this.canvas = menu.menu;
   //this.ctx = menu.ctx;
-
+  this.menu = menu;
   this.fps = 50;
   this.balls = [];
   this.ballsOnair = [];
@@ -80,11 +80,12 @@ Game.prototype.stop = function() {
 
 Game.prototype.gameOver = function() {
   this.stop();
+  this.menu.start();
   
-  if(confirm("GAME OVER. Play again?")) {
-      this.reset();
-      this.start();
-  }
+  //if(confirm("GAME OVER. Play again?")) {
+  //    this.reset();
+  //    this.start();
+  //}
 };
 
 Game.prototype.reset = function() {

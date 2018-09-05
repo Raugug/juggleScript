@@ -73,7 +73,7 @@ Main.prototype.reset = function() {
   };
 
 Main.prototype.startGame = function() {
-    var game = new Game("canvas");
+    var game = new Game("canvas", this);
     game.start();
 }
 
