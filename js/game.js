@@ -4,7 +4,7 @@ function Game(canvasId) {
   //this.canvas = menu.menu;
   //this.ctx = menu.ctx;
 
-  this.fps = 60;
+  this.fps = 50;
   this.balls = [];
   this.ballsOnair = [];
 
@@ -61,7 +61,7 @@ Game.prototype.start = function() {
       
       this.moveAll();
       this.draw();
-
+      //GAVE OVER CONDITIONS
       if (this.handLeft.ballsIn.length > 1 || this.handRight.ballsIn.length > 1) {
         this.gameOver();
       }
@@ -140,9 +140,9 @@ Game.prototype.outOfScreen = function(ball) {
   // colishions BORDERS
   return (
     ball.x - ball.radius/2 <= 0 ||
-    ball.x + ball.radius/2 >= 1280 ||
+    ball.x + ball.radius/2 >= this.canvas.width ||
     ball.y - ball.radius/2 <= 0 ||
-    ball.y + ball.radius/2 >= 800
+    ball.y + ball.radius/2 >= this.canvas.height
   );
 };
 

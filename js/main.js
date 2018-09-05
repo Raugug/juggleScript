@@ -34,7 +34,6 @@ Main.prototype.SetListeners = function() {
         KEY_STATUS[KEY_CODES[keyCode]] = false;
       }
     };
-  
 }
 
 Main.prototype.start = function() {
@@ -49,7 +48,6 @@ Main.prototype.start = function() {
         
         this.moveAll();
         this.draw();
-        //this.startGame();
   
       }.bind(this),
       1000 / this.fps
