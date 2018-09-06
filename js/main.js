@@ -75,8 +75,8 @@ Main.prototype.reset = function() {
     this.framesCounter = 0;
   };
 
-Main.prototype.startGame = function() {
-    var game = new Game("canvas", this);
+Main.prototype.startGame = function(mode) {
+    var game = new Game("canvas", this, mode);
     game.start();
 }
 

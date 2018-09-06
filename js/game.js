@@ -1,11 +1,13 @@
-function Game(canvasId, menu) {
+function Game(canvasId, menu, mode) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = this.canvas.getContext("2d");
   this.menu = menu;
+  this.mode = mode;
   this.fps = 50;
   this.balls = [];
   this.ballsOnair = [];
-  this.music = new Audio("audio/circusFull.mp3");
+  this.mode ? this.music = new Audio("audio/song2.mp3") : this.music = new Audio("audio/circusFull.mp3"); 
+  //this.music = new Audio("audio/circusFull.mp3");
   this.crowd = new Audio("audio/crowd.mp3");
   this.boo = new Audio("audio/boo.mp3");
   this.crowd2 = new Audio("audio/cheering.mp3");
@@ -52,7 +54,6 @@ Game.prototype.start = function() {
     function() {
       this.clear();
       this.music.play();
-      //this.music.loop = true;
       this.framesCounter++;
       //FramesCounter Control
       if (this.framesCounter > 1000) {
@@ -76,12 +77,11 @@ Game.prototype.start = function() {
       this.draw();
       //GAVE OVER CONDITIONS
       if (this.handLeft.ballsIn.length > 1 || this.handRight.ballsIn.length > 1) {
-        //this.over.play();
         this.boo.play();
         this.gameOver();
       }
       this.balls.forEach(function(ball) {
-        if (this.outOfScreen(ball)) {/*this.over.play();*/ this.boo.play(); this.gameOver();} 
+        if (this.outOfScreen(ball)) {this.boo.play(); this.gameOver();} 
       }.bind(this))
 
     }.bind(this),
@@ -101,7 +101,7 @@ Game.prototype.gameOver = function() {
 };
 
 Game.prototype.reset = function() {
-  this.background = new Background(this, 0);
+  this.mode ? this.background = new Background(this, 2) : this.background = new Background(this, 0);
   this.handLeft = new Hand(this, 'left');
   this.handRight = new Hand(this, 'right');
 

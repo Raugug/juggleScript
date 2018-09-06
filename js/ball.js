@@ -11,14 +11,44 @@ function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL) {
     this.onRight = onRight;
     this.y0 = y0;
     this.y = this.y0;
+    this.angle = 0;
+
+    this.img = new Image();
+    this.img.src = 'img/skull.png';
+    this.w = 64;
+    this.h = 80;
 }
 
 Ball.prototype.draw = function() {
-    this.game.ctx.beginPath();
-    this.game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-    this.game.ctx.closePath();
-    this.game.ctx.fillStyle = this.color;
-    this.game.ctx.fill();
+    if (this.game.mode == 0){
+        this.game.ctx.beginPath();
+        this.game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        this.game.ctx.closePath();
+        this.game.ctx.fillStyle = this.color;
+        this.game.ctx.fill();
+    } else {
+        if (!this.onairToR && !this.onairToL){
+        this.game.ctx.drawImage(
+        this.img,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+          );
+        } else {
+            this.angle+=25;
+            this.game.ctx.save();
+            this.game.ctx.translate(this.x + this.w/2, this.y + this.h/2);
+            this.game.ctx.rotate(this.angle*Math.PI/180);
+            this.game.ctx.drawImage(this.img,
+                                    this.x -this.x-this.w/2,
+                                    this.y -this.y-this.h/2,
+                                    this.w,
+                                    this.h);
+            this.game.ctx.translate(-this.x - this.w/2, -this.y - this.h/2); // translate back
+            this.game.ctx.restore();
+        }
+    }
 }
 
 Ball.prototype.moveToR = function() {

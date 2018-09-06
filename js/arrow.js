@@ -35,9 +35,11 @@ Arrow.prototype.move = function() {
             if (this.x == positions[0]){
                 console.log("ENTER NORMAL MODE");
                 this.menu.stop();
-                this.menu.startGame();
+                this.menu.startGame(0);
             } else {
                 console.log("ENTER SKULL MODE");
+                this.menu.stop();
+                this.menu.startGame(1);
             } 
         }
     }
