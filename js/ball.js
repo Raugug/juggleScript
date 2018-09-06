@@ -1,4 +1,4 @@
-function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL) {
+function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL, src) {
     this.game = game;
     this.x = x;
     this.y = this.game.handLeft.y;
@@ -12,11 +12,19 @@ function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL) {
     this.y0 = y0;
     this.y = this.y0;
     this.angle = 0;
-
+    this.src = ['img/juan.jpeg', 'img/giorgio.jpeg', 'img/gabi.jpeg', 'img/diego.jpeg', 'img/anna.jpeg', 'img/marc.jpeg'];
     this.img = new Image();
-    this.img.src = 'img/skull.png';
-    this.w = 64;
-    this.h = 80;
+    if (this.game.mode == 1){
+        this.img.src = 'img/skull.png';
+        this.w = 64;
+        this.h = 80;
+    } else if (this.game.mode == 2) {
+        this.img.src = this.src[src];
+        this.w = 100;
+        this.h = 100;
+    }
+
+
 }
 
 Ball.prototype.draw = function() {

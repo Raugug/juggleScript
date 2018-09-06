@@ -3,21 +3,21 @@ function Hand(game, side) {
     this.side = side;
     this.img = new Image();
     this.jump = new Audio("audio/jump.mp3");
-    this.srcArray = ['img/Left1.png', 'img/Right1.png', 'img/skhandl.png', 'img/skhandr.png'];
+    this.srcArray = ['img/Left1.png', 'img/Right1.png', 'img/skhandr.png', 'img/c/skhandl.png'];
     //POSITION BY SIDE
     if (this.side == 'left'){
         this.x = this.game.canvas.width * 0.1; 
         //pos orig
         this.y0 = this.game.canvas.height * 0.8;
         this.y = this.y0;
-        this.game.mode ? this.img.src = this.srcArray[2] : this.img.src = this.srcArray[0];
+        this.game.mode == 1 ? this.img.src = this.srcArray[2] : this.img.src = this.srcArray[0];
     }
     if (this.side == 'right'){
         this.x = this.game.canvas.width * 0.8;
         //pos orig
         this.y0 = this.game.canvas.height * 0.8;
         this.y = this.y0;
-        this.game.mode ? this.img.src = this.srcArray[3] : this.img.src = this.srcArray[1];
+        this.game.mode == 1 ? this.img.src = this.srcArray[3] : this.img.src = this.srcArray[1];
     }
     // measure
     this.w = 100;

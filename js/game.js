@@ -6,14 +6,17 @@ function Game(canvasId, menu, mode) {
   this.fps = 50;
   this.balls = [];
   this.ballsOnair = [];
-  this.mode ? this.music = new Audio("audio/song2.mp3") : this.music = new Audio("audio/circusFull.mp3"); 
-  //this.music = new Audio("audio/circusFull.mp3");
+  this.mode == 1 ? this.music = new Audio("audio/song2.mp3") :
+  this.mode == 2 ? this.music = new Audio("audio/benny.mp3") : 
+  this.music = new Audio("audio/circusFull.mp3"); 
+  
   this.crowd = new Audio("audio/crowd.mp3");
   this.boo = new Audio("audio/boo.mp3");
   this.crowd2 = new Audio("audio/cheering.mp3");
   this.over = new Audio("audio/over.mp3");
   this.do = new Audio("audio/do.mp3");
-  this.music.currentTime = 10;
+  this.mode == 0 ? this.music.currentTime = 10 : 
+  this.mode == 1 ? this.music.currentTime = 2 : this.music.currentTime = 1;
 
   this.reset();
   this.SetListeners();
@@ -67,7 +70,7 @@ Game.prototype.start = function() {
         this.crowd.play();
         this.createForth();}
       if (this.score > 100 && this.score <= 100.05){
-        this.crowd2.play();
+        this.crowd.play();
         this.createFifth();}
       if (this.score > 150 && this.score <= 150.05){
         this.crowd.play();
@@ -101,7 +104,7 @@ Game.prototype.gameOver = function() {
 };
 
 Game.prototype.reset = function() {
-  this.mode ? this.background = new Background(this, 2) : this.background = new Background(this, 0);
+  this.background = new Background(this, this.mode);
   this.handLeft = new Hand(this, 'left');
   this.handRight = new Hand(this, 'right');
 
@@ -109,9 +112,9 @@ Game.prototype.reset = function() {
     KEY_STATUS[KEY_CODES[code]] = false;
   }
 
-  this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false, false, false);
-  this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false, true, false);
-  this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true, false, false);
+  this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false, false, false, 0);
+  this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false, true, false, 1);
+  this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true, false, false, 2);
   this.balls.push(this.ballG); 
   this.balls.push(this.ballY); 
   this.balls.push(this.ballB);
@@ -123,17 +126,17 @@ Game.prototype.reset = function() {
 };
 
 Game.prototype.createForth = function() {
-  this.ballP = new Ball(this, this.handRight.x, '#F6F', (this.handRight.y - 1), false, true, false, true);
+  this.ballP = new Ball(this, this.handRight.x, '#F6F', (this.handRight.y - 1), false, true, false, true, 3);
   this.balls.push(this.ballP);
   this.ballsOnair.push(this.ballP);
 }
 Game.prototype.createFifth = function() {
-  this.ballO = new Ball(this, this.handRight.x, '#F93', (this.handRight.y - 1), false, true, false, true);
+  this.ballO = new Ball(this, this.handRight.x, '#F93', (this.handRight.y - 1), false, true, false, true, 4);
   this.balls.push(this.ballO);
   this.ballsOnair.push(this.ballO);
 }
 Game.prototype.createSixth = function() {
-  this.ballV = new Ball(this, this.handRight.x, '#F93', (this.handRight.y - 1), false, true, false, true);
+  this.ballV = new Ball(this, this.handRight.x, '#909', (this.handRight.y - 1), false, true, false, true, 5);
   this.balls.push(this.ballV);
   this.ballsOnair.push(this.ballV);
 }

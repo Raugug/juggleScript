@@ -5,7 +5,7 @@ function Mode(menu, src) {
     this.y = this.menu.canvas.height * 0.4;
   
     this.img = new Image();
-    this.srcArray = ['img/juggler.png', 'img/crime-scene-tape.png', 'img/pirate-skull.png'];
+    this.srcArray = ['img/juggler.png', 'img/pirate-skull.png',  'img/iron.png'];
     this.img.src = this.srcArray[src];
     // medidas de la imagen
     this.w = 128;

@@ -1,7 +1,7 @@
 function Main(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
-    this.fps = 60;
+    this.fps = 10;
     this.music = new Audio("audio/intro.mp3");
     this.reset();
     this.SetListeners();
@@ -62,10 +62,11 @@ Main.prototype.stop = function() {
 };
 
 Main.prototype.reset = function() {
-    this.background = new Background(this, 1);
+    this.background = new Background(this, 3);
     this.mode0 = new Mode(this, 0);
     this.mode1 = new Mode(this, 1);
     this.mode2 = new Mode(this, 2);
+    //this.mode2 = new Mode(this, 3);
     this.arrow = new Arrow(this);
   
     for (code in KEY_CODES) {

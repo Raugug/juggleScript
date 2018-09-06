@@ -2,7 +2,7 @@ function Background(game, src) {
     this.game = game;
   
     this.img = new Image();
-    this.src = ['img/bg1.jpg', 'img/bg3.jpg', 'img/grave.jpg']
+    this.src = ['img/bg1.jpg', 'img/grave.jpg', 'img/icover.jpg', 'img/bg3.jpg']
     this.img.src = this.src[src];
   
     this.x = 0;
