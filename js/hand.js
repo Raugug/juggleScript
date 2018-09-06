@@ -2,6 +2,7 @@ function Hand(game, side) {
     this.game = game;
     this.side = side;
     this.img = new Image();
+    this.jump = new Audio("audio/jump.mp3");
     this.srcArray = ['img/Left1.png', 'img/Right1.png'];
     //POSITION BY SIDE
     if (this.side == 'left'){
@@ -51,6 +52,7 @@ Hand.prototype.move = function() {
                     var ballonair = this.ballsIn.pop();
                     ballonair.onLeft = false;
                     ballonair.onairToR = true;
+                    this.jump.play();
                     this.game.ballsOnair.push(ballonair);
                 }
             }
@@ -69,6 +71,7 @@ Hand.prototype.move = function() {
                   var ballonair = this.ballsIn.pop();
                   ballonair.onRight = false;
                   ballonair.onairToL = true;
+                  this.jump.play();
                   this.game.ballsOnair.push(ballonair);
               }
     

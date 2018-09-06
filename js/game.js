@@ -5,9 +5,13 @@ function Game(canvasId, menu) {
   this.fps = 50;
   this.balls = [];
   this.ballsOnair = [];
-  this.music = new Audio("audio/circusTheme.mp3");
+  this.music = new Audio("audio/circusFull.mp3");
   this.crowd = new Audio("audio/crowd.mp3");
   this.boo = new Audio("audio/boo.mp3");
+  this.crowd2 = new Audio("audio/cheering.mp3");
+  this.over = new Audio("audio/over.mp3");
+  this.do = new Audio("audio/do.mp3");
+  this.music.currentTime = 10;
 
   this.reset();
   this.SetListeners();
@@ -48,32 +52,36 @@ Game.prototype.start = function() {
     function() {
       this.clear();
       this.music.play();
-      this.music.loop = true;
+      //this.music.loop = true;
       this.framesCounter++;
       //FramesCounter Control
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
       }
       this.score += 0.05;
+      if (this.score > 5 && this.score <= 5.05){this.do.play();}
+
       //ADDING EXTRA BALLS
       if (this.score > 50 && this.score <= 50.05){
         this.crowd.play();
-        this.createForth();
-      }
+        this.createForth();}
       if (this.score > 100 && this.score <= 100.05){
+        this.crowd2.play();
+        this.createFifth();}
+      if (this.score > 150 && this.score <= 150.05){
         this.crowd.play();
-        this.createFifth();
-      }
+        this.createSixth();}
       
       this.moveAll();
       this.draw();
       //GAVE OVER CONDITIONS
       if (this.handLeft.ballsIn.length > 1 || this.handRight.ballsIn.length > 1) {
+        //this.over.play();
         this.boo.play();
         this.gameOver();
       }
       this.balls.forEach(function(ball) {
-        if (this.outOfScreen(ball)) {this.boo.play(); this.gameOver();} 
+        if (this.outOfScreen(ball)) {/*this.over.play();*/ this.boo.play(); this.gameOver();} 
       }.bind(this))
 
     }.bind(this),
@@ -104,14 +112,11 @@ Game.prototype.reset = function() {
   this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false, false, false);
   this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false, true, false);
   this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true, false, false);
-  //this.ballP = new Ball(this, this.handRight.x, '#F6F', (this.handRight.y - 1), false, true, false, true);
   this.balls.push(this.ballG); 
   this.balls.push(this.ballY); 
   this.balls.push(this.ballB);
-  //this.balls.push(this.ballP);
   this.handLeft.ballsIn.push(this.ballG);
   this.ballsOnair.push(this.ballY);
-  //this.ballsOnair.push(this.ballP);
   this.handRight.ballsIn.push(this.ballB);
   this.framesCounter = 0;
   this.score = 0;
@@ -122,12 +127,17 @@ Game.prototype.createForth = function() {
   this.balls.push(this.ballP);
   this.ballsOnair.push(this.ballP);
 }
-
 Game.prototype.createFifth = function() {
   this.ballO = new Ball(this, this.handRight.x, '#F93', (this.handRight.y - 1), false, true, false, true);
   this.balls.push(this.ballO);
   this.ballsOnair.push(this.ballO);
 }
+Game.prototype.createSixth = function() {
+  this.ballV = new Ball(this, this.handRight.x, '#F93', (this.handRight.y - 1), false, true, false, true);
+  this.balls.push(this.ballV);
+  this.ballsOnair.push(this.ballV);
+}
+
 
 Game.prototype.isGrabbedByRight = function(ball) {
   // colishions RIGHT
@@ -169,8 +179,8 @@ Game.prototype.draw = function() {
   this.ballY.draw();
   this.ballB.draw();
   if (this.score > 50) {this.ballP.draw();}
-  this.drawScore();
-  if (this.score > 50) {this.ballO.draw();}
+  if (this.score > 100) {this.ballO.draw();}
+  if (this.score > 150) {this.ballV.draw();}
   this.drawScore();
 };
 
