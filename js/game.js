@@ -6,14 +6,12 @@ function Game(canvasId, menu, mode) {
   this.fps = 50;
   this.balls = [];
   this.ballsOnair = [];
-  this.mode == 1 ? this.music = new Audio("audio/song2.mp3") :
+  this.mode == 1 ? this.music = new Audio("audio/inmig.mp3") :
   this.mode == 2 ? this.music = new Audio("audio/benny.mp3") : 
-  this.music = new Audio("audio/circusFull.mp3"); 
+  this.music = new Audio("audio/circus.mp3"); 
   this.crowd = new Audio("audio/crowd.mp3");
   this.boo = new Audio("audio/boo.mp3");
   this.do = new Audio("audio/do.mp3");
-  this.mode == 0 ? this.music.currentTime = 10 : 
-  this.mode == 1 ? this.music.currentTime = 2 : this.music.currentTime = 1;
 
   this.reset();
   this.SetListeners();
@@ -139,20 +137,28 @@ Game.prototype.createSixth = function() {
 
 Game.prototype.isGrabbedByRight = function(ball) {
   // colishions RIGHT
-    return (
-        ball.x >= this.handRight.x &&
-        ball.x <= this.handRight.x + this.handRight.w &&
-        ball.y >= this.handRight.y
-    );
+  if (this.mode == 0) {
+    return (ball.x >= this.handRight.x &&
+            ball.x <= this.handRight.x + this.handRight.w &&
+            ball.y >= this.handRight.y);
+  } else {
+    return (ball.x + ball.w/2 >= this.handRight.x &&
+            ball.x + ball.w/2 <= this.handRight.x + this.handRight.w &&
+            ball.y + ball.h/2 >= this.handRight.y);
+  }
 };
 
 Game.prototype.isGrabbedByLeft = function(ball) {
   // colishions LEFT
-  return (
-    ball.x >= this.handLeft.x &&
-    ball.x <= this.handLeft.x + this.handLeft.w &&
-    ball.y >= this.handLeft.y
-  );
+  if (this.mode == 0) {
+    return (ball.x >= this.handLeft.x &&
+            ball.x <= this.handLeft.x + this.handLeft.w &&
+            ball.y >= this.handLeft.y);
+  } else {
+    return (ball.x + ball.w/2 >= this.handLeft.x &&
+            ball.x + ball.w/2 <= this.handLeft.x + this.handRight.w &&
+            ball.y + ball.h/2 >= this.handLeft.y);
+  }
 };
 
 Game.prototype.outOfScreen = function(ball) {

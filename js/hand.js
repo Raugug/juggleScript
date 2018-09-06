@@ -3,7 +3,7 @@ function Hand(game, side) {
     this.side = side;
     this.img = new Image();
     this.jump = new Audio("audio/jump.mp3");
-    this.srcArray = ['img/Left1.png', 'img/Right1.png', 'img/skhandr.png', 'img/skhandl.png'];
+    this.srcArray = ['img/Left1.png', 'img/Right1.png', 'img/skleft.png', 'img/skright.png'];
     //POSITION BY SIDE
     if (this.side == 'left'){
         this.x = this.game.canvas.width * 0.1; 
@@ -21,7 +21,7 @@ function Hand(game, side) {
     }
     // measure
     this.w = 110;
-    this.h = 97;
+    this.h = 100;
     this.vy = 1;
     this.ballsIn = [];
     //CONTROLS

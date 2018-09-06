@@ -12,16 +12,16 @@ function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL, src) {
     this.y0 = y0;
     this.y = this.y0;
     this.angle = 0;
-    this.src = ['img/juan.jpeg', 'img/giorgio.jpeg', 'img/gabi.jpeg', 'img/diego.jpeg', 'img/anna.jpeg', 'img/marc.jpeg'];
+    this.src = ['img/juan.jpg', 'img/giorgio.jpg', 'img/gabi.jpg', 'img/diego.jpeg', 'img/anna.jpg', 'img/marc.jpg'];
     this.img = new Image();
     if (this.game.mode == 1){
         this.img.src = 'img/skull.png';
-        this.w = 64;
+        this.w = 90;
         this.h = 80;
     } else if (this.game.mode == 2) {
         this.img.src = this.src[src];
-        this.w = 80;
-        this.h = 80;
+        this.w = 90;
+        this.h = 90;
     }
 
 
@@ -110,7 +110,11 @@ Ball.prototype.moveToL = function() {
 }
 
 Ball.prototype.translateR = function() {
-    this.x = this.game.handRight.x + this.game.handRight.w / 2;
+    if (this.game.mode == 0){
+        this.x = this.game.handRight.x + this.game.handRight.w / 2;
+    } else {
+        this.x = this.game.handRight.x + this.game.handRight.w / 10;
+    }
 }
 Ball.prototype.translateL = function() {
     if (this.game.mode == 0){
