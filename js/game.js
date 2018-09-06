@@ -9,11 +9,8 @@ function Game(canvasId, menu, mode) {
   this.mode == 1 ? this.music = new Audio("audio/song2.mp3") :
   this.mode == 2 ? this.music = new Audio("audio/benny.mp3") : 
   this.music = new Audio("audio/circusFull.mp3"); 
-  
   this.crowd = new Audio("audio/crowd.mp3");
   this.boo = new Audio("audio/boo.mp3");
-  this.crowd2 = new Audio("audio/cheering.mp3");
-  this.over = new Audio("audio/over.mp3");
   this.do = new Audio("audio/do.mp3");
   this.mode == 0 ? this.music.currentTime = 10 : 
   this.mode == 1 ? this.music.currentTime = 2 : this.music.currentTime = 1;
@@ -58,7 +55,6 @@ Game.prototype.start = function() {
       this.clear();
       this.music.play();
       this.framesCounter++;
-      //FramesCounter Control
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
       }
@@ -86,7 +82,6 @@ Game.prototype.start = function() {
       this.balls.forEach(function(ball) {
         if (this.outOfScreen(ball)) {this.boo.play(); this.gameOver();} 
       }.bind(this))
-
     }.bind(this),
     1000 / this.fps
   );
@@ -189,8 +184,8 @@ Game.prototype.draw = function() {
 
 Game.prototype.drawScore = function() {
   this.ctx.font = "30px sans-serif";
-  this.ctx.fillStyle = "white";
-  this.ctx.fillText(Math.floor(this.score), 50, 50);
+  this.mode == 1 ? this.ctx.fillStyle = "red" : this.ctx.fillStyle = "white";
+  this.ctx.fillText(Math.floor(this.score), this.canvas.width * 0.1, this.canvas.height * 0.1);
 }
 
 Game.prototype.moveAll = function() {

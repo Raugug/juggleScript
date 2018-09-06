@@ -1,7 +1,7 @@
 function Main(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
-    this.fps = 10;
+    this.fps = 11;
     this.music = new Audio("audio/intro.mp3");
     this.reset();
     this.SetListeners();

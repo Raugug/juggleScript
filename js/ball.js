@@ -20,8 +20,8 @@ function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL, src) {
         this.h = 80;
     } else if (this.game.mode == 2) {
         this.img.src = this.src[src];
-        this.w = 100;
-        this.h = 100;
+        this.w = 90;
+        this.h = 90;
     }
 
 
@@ -44,7 +44,7 @@ Ball.prototype.draw = function() {
         this.h
           );
         } else {
-            this.angle+=25;
+            if (this.game.mode == 1){this.angle+=25;} else {this.angle+=10;}
             this.game.ctx.save();
             this.game.ctx.translate(this.x + this.w/2, this.y + this.h/2);
             this.game.ctx.rotate(this.angle*Math.PI/180);
@@ -53,7 +53,7 @@ Ball.prototype.draw = function() {
                                     this.y -this.y-this.h/2,
                                     this.w,
                                     this.h);
-            this.game.ctx.translate(-this.x - this.w/2, -this.y - this.h/2); // translate back
+            this.game.ctx.translate(-this.x - this.w/2, -this.y - this.h/2);
             this.game.ctx.restore();
         }
     }
@@ -61,7 +61,6 @@ Ball.prototype.draw = function() {
 
 Ball.prototype.moveToR = function() {
     if (this.game.isGrabbedByRight(this)){
-        console.log("GRABBED BY RIGHT");
         this.game.ballsOnair.pop();
         this.game.handRight.ballsIn.push(this);
         this.onRight = true;
@@ -87,7 +86,6 @@ Ball.prototype.moveToR = function() {
 
 Ball.prototype.moveToL = function() {
     if (this.game.isGrabbedByLeft(this)){
-        console.log("GRABBED BY LEFT");
         this.game.ballsOnair.pop();
         this.game.handLeft.ballsIn.push(this);
         this.onLeft = true;
@@ -115,5 +113,9 @@ Ball.prototype.translateR = function() {
     this.x = this.game.handRight.x + this.game.handRight.w / 2;
 }
 Ball.prototype.translateL = function() {
-    this.x = this.game.handLeft.x + this.game.handLeft.w / 2;
+    if (this.game.mode == 0){
+        this.x = this.game.handLeft.x + this.game.handLeft.w / 2;
+    } else {
+        this.x = this.game.handLeft.x + this.game.handLeft.w / 10;
+    }
 }

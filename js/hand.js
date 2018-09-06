@@ -3,7 +3,7 @@ function Hand(game, side) {
     this.side = side;
     this.img = new Image();
     this.jump = new Audio("audio/jump.mp3");
-    this.srcArray = ['img/Left1.png', 'img/Right1.png', 'img/skhandr.png', 'img/c/skhandl.png'];
+    this.srcArray = ['img/Left1.png', 'img/Right1.png', 'img/skhandr.png', 'img/skhandl.png'];
     //POSITION BY SIDE
     if (this.side == 'left'){
         this.x = this.game.canvas.width * 0.1; 
@@ -41,10 +41,10 @@ Hand.prototype.move = function() {
     if (this.side == 'left'){  
         if (KEY_STATUS.a || KEY_STATUS.d || KEY_STATUS.w) {
             if (KEY_STATUS.a && this.x >= 0) {
-                this.x -= 5;
+                this.x -= 6;
             }
             if (KEY_STATUS.d && this.x + this.w <= this.game.canvas.width/2) {
-                this.x += 5;
+                this.x += 6;
             }
             //THROW
             if (KEY_STATUS.w) {
@@ -60,10 +60,10 @@ Hand.prototype.move = function() {
     } else {
         if (KEY_STATUS.left || KEY_STATUS.right || KEY_STATUS.up) {
             if (KEY_STATUS.left && this.x >= this.game.canvas.width/2) {
-                this.x -= 5;
+                this.x -= 6;
             }
             if (KEY_STATUS.right && this.x + this.w <= this.game.canvas.width) {
-                this.x += 5;
+                this.x += 6;
             }
             //THROW
             if (KEY_STATUS.up) {
