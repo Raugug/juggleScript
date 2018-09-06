@@ -20,8 +20,8 @@ function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL, src) {
         this.h = 80;
     } else if (this.game.mode == 2) {
         this.img.src = this.src[src];
-        this.w = 90;
-        this.h = 90;
+        this.w = 80;
+        this.h = 80;
     }
 
 
@@ -44,7 +44,7 @@ Ball.prototype.draw = function() {
         this.h
           );
         } else {
-            if (this.game.mode == 1){this.angle+=25;} else {this.angle+=10;}
+            if (this.game.mode == 1){this.angle+=25;} else {this.angle+=5;}
             this.game.ctx.save();
             this.game.ctx.translate(this.x + this.w/2, this.y + this.h/2);
             this.game.ctx.rotate(this.angle*Math.PI/180);

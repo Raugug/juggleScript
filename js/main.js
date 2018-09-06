@@ -66,7 +66,6 @@ Main.prototype.reset = function() {
     this.mode0 = new Mode(this, 0);
     this.mode1 = new Mode(this, 1);
     this.mode2 = new Mode(this, 2);
-    //this.mode2 = new Mode(this, 3);
     this.arrow = new Arrow(this);
   
     for (code in KEY_CODES) {

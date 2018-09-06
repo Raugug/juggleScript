@@ -20,8 +20,8 @@ function Hand(game, side) {
         this.game.mode == 1 ? this.img.src = this.srcArray[3] : this.img.src = this.srcArray[1];
     }
     // measure
-    this.w = 100;
-    this.h = 88;
+    this.w = 110;
+    this.h = 97;
     this.vy = 1;
     this.ballsIn = [];
     //CONTROLS
