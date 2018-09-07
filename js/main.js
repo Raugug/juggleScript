@@ -14,7 +14,8 @@ var KEY_CODES = {
     39: "right",
     65: "a",
     68: "d",
-    13: "enter"
+    13: "enter",
+    86: "v"
 };
 var KEY_STATUS = {};
   
@@ -34,7 +35,7 @@ Main.prototype.SetListeners = function() {
         KEY_STATUS[KEY_CODES[keyCode]] = false;
       }
     };
-}
+};
 
 Main.prototype.start = function() {
     this.interval = setInterval(
@@ -47,7 +48,6 @@ Main.prototype.start = function() {
         if (this.framesCounter > 1000) {
           this.framesCounter = 0;
         }
-        
         this.moveAll();
         this.draw();
   
@@ -66,19 +66,19 @@ Main.prototype.reset = function() {
     this.mode0 = new Mode(this, 0);
     this.mode1 = new Mode(this, 1);
     this.mode2 = new Mode(this, 2);
+    this.mode3 = new Mode(this, 3);
     this.arrow = new Arrow(this);
   
     for (code in KEY_CODES) {
       KEY_STATUS[KEY_CODES[code]] = false;
-    }
-  
+    };
     this.framesCounter = 0;
-  };
+};
 
 Main.prototype.startGame = function(mode) {
     var game = new Game("canvas", this, mode);
     game.start();
-}
+};
 
 Main.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -90,10 +90,9 @@ Main.prototype.draw = function() {
     this.mode1.draw();
     this.mode2.draw();
     this.arrow.draw();
+    this.mode3.select();
 };
 
 Main.prototype.moveAll = function() {
     this.arrow.move();
-}
-
-
+};

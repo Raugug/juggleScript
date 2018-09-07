@@ -12,6 +12,8 @@ function Game(canvasId, menu, mode) {
   this.crowd = new Audio("audio/crowd.mp3");
   this.boo = new Audio("audio/boo.mp3");
   this.do = new Audio("audio/do.mp3");
+  this.leftScore = 0;
+  this.rightScore = 0;
 
   this.reset();
   this.SetListeners();
@@ -24,7 +26,8 @@ var KEY_CODES = {
   39: "right",
   65: "a",
   68: "d",
-  13: "enter"
+  13: "enter",
+  86: "v"
 };
 var KEY_STATUS = {};
 
@@ -44,7 +47,6 @@ Game.prototype.SetListeners = function() {
       KEY_STATUS[KEY_CODES[keyCode]] = false;
     }
   };
-
 }
 
 Game.prototype.start = function() {
@@ -52,6 +54,7 @@ Game.prototype.start = function() {
     function() {
       this.clear();
       this.music.play();
+      this.music.loop = true;
       this.framesCounter++;
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
@@ -78,8 +81,15 @@ Game.prototype.start = function() {
         this.gameOver();
       }
       this.balls.forEach(function(ball) {
-        if (this.outOfScreen(ball)) {this.boo.play(); this.gameOver();} 
+        if (this.outOfScreen(ball)) {this.boo.play(); this.gameOver();}
       }.bind(this))
+
+      //VS CONDITIONS
+      if (this.mode == 3){
+        if (this.handLeft.ballsIn.length > 1 || this.outOfScreenLeft()) {this.rightScore++; console.log("RIGHT HAND WINS");}
+        if (this.handRight.ballsIn.length > 1 || this.outOfScreenRight()){this.leftScore++; console.log("RIGHT HAND WINS");}
+      }
+
     }.bind(this),
     1000 / this.fps
   );
@@ -93,7 +103,6 @@ Game.prototype.stop = function() {
 Game.prototype.gameOver = function() {
   this.stop();
   this.menu.start();
-  
 };
 
 Game.prototype.reset = function() {
@@ -104,7 +113,6 @@ Game.prototype.reset = function() {
   for (code in KEY_CODES) {
     KEY_STATUS[KEY_CODES[code]] = false;
   }
-
   this.ballG = new Ball(this, this.handLeft.x, '#9F3', this.handLeft.y, true, false, false, false, 0);
   this.ballY = new Ball(this, this.handLeft.x, '#FF0', this.handLeft.y, true, false, true, false, 1);
   this.ballB = new Ball(this, this.handRight.x, '#00F', this.handRight.y, false, true, false, false, 2);
@@ -134,7 +142,6 @@ Game.prototype.createSixth = function() {
   this.ballsOnair.push(this.ballV);
 }
 
-
 Game.prototype.isGrabbedByRight = function(ball) {
   // colishions RIGHT
   if (this.mode == 0) {
@@ -159,6 +166,15 @@ Game.prototype.isGrabbedByLeft = function(ball) {
             ball.x + ball.w/2 <= this.handLeft.x + this.handRight.w &&
             ball.y + ball.h/2 >= this.handLeft.y);
   }
+};
+//VS MODE METHODS
+Game.prototype.outOfScreenLeft = function(ball) {
+  // OUT LEFT
+  return (ball.x - ball.radius/2 <= 0);
+};
+Game.prototype.outOfScreenRight = function(ball) {
+  // OUT RIGHT
+  return (ball.x + ball.radius/2 >= this.canvas.width);
 };
 
 Game.prototype.outOfScreen = function(ball) {
@@ -211,6 +227,5 @@ Game.prototype.moveAll = function() {
         if (this.isGrabbedByLeft(ball)) {
             ball.translateL();
         }
-
     }.bind(this));
 };

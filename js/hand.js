@@ -7,34 +7,23 @@ function Hand(game, side) {
     //POSITION BY SIDE
     if (this.side == 'left'){
         this.x = this.game.canvas.width * 0.1; 
-        //pos orig
         this.y0 = this.game.canvas.height * 0.8;
         this.y = this.y0;
         this.game.mode == 1 ? this.img.src = this.srcArray[2] : this.img.src = this.srcArray[0];
     }
     if (this.side == 'right'){
         this.x = this.game.canvas.width * 0.8;
-        //pos orig
         this.y0 = this.game.canvas.height * 0.8;
         this.y = this.y0;
         this.game.mode == 1 ? this.img.src = this.srcArray[3] : this.img.src = this.srcArray[1];
     }
-    // measure
     this.w = 110;
     this.h = 100;
-    this.vy = 1;
     this.ballsIn = [];
-    //CONTROLS
 }
 
 Hand.prototype.draw = function() {
-    this.game.ctx.drawImage(
-      this.img,
-      this.x,
-      this.y,
-      this.w,
-      this.h
-    );
+    this.game.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 }
 
 Hand.prototype.move = function() {
@@ -74,7 +63,6 @@ Hand.prototype.move = function() {
                   this.jump.play();
                   this.game.ballsOnair.push(ballonair);
               }
-    
             }
         }
     }

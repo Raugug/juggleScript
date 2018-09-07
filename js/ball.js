@@ -23,8 +23,6 @@ function Ball(game, x, color, y0, onLeft, onRight, onairToR, onairToL, src) {
         this.w = 90;
         this.h = 90;
     }
-
-
 }
 
 Ball.prototype.draw = function() {
@@ -36,23 +34,13 @@ Ball.prototype.draw = function() {
         this.game.ctx.fill();
     } else {
         if (!this.onairToR && !this.onairToL){
-        this.game.ctx.drawImage(
-        this.img,
-        this.x,
-        this.y,
-        this.w,
-        this.h
-          );
+        this.game.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
         } else {
             if (this.game.mode == 1){this.angle+=25;} else {this.angle+=5;}
             this.game.ctx.save();
             this.game.ctx.translate(this.x + this.w/2, this.y + this.h/2);
             this.game.ctx.rotate(this.angle*Math.PI/180);
-            this.game.ctx.drawImage(this.img,
-                                    this.x -this.x-this.w/2,
-                                    this.y -this.y-this.h/2,
-                                    this.w,
-                                    this.h);
+            this.game.ctx.drawImage(this.img, this.x-this.x-this.w/2,this.y-this.y-this.h/2, this.w, this.h);
             this.game.ctx.translate(-this.x - this.w/2, -this.y - this.h/2);
             this.game.ctx.restore();
         }
@@ -64,8 +52,7 @@ Ball.prototype.moveToR = function() {
         this.game.ballsOnair.pop();
         this.game.handRight.ballsIn.push(this);
         this.onRight = true;
-        this.onairToR = false;
-        
+        this.onairToR = false;   
     } else {
         var gravity = 0.1;
         if (this.y >= 0) {
@@ -89,8 +76,7 @@ Ball.prototype.moveToL = function() {
         this.game.ballsOnair.pop();
         this.game.handLeft.ballsIn.push(this);
         this.onLeft = true;
-        this.onairToL = false;
-        
+        this.onairToL = false;  
     } else { 
         var gravity = 0.1;
         if (this.y >= 0) {

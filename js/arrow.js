@@ -1,24 +1,15 @@
 function Arrow(menu) {
     this.menu = menu;
-   
     this.x = this.menu.canvas.width * 0.215; 
     this.y = this.menu.canvas.height * 0.4 + 150;
-  
-    this.img = new Image();
-    this.img.src = 'img/play-button.png'
-    // medidas de la imagen
     this.w = 128;
     this.h = 128;
+    this.img = new Image();
+    this.img.src = 'img/play-button.png'
 }
 
 Arrow.prototype.draw = function() {
-    this.menu.ctx.drawImage(
-      this.img,
-      this.x,
-      this.y,
-      this.w,
-      this.h
-    );
+    this.menu.ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 }
 
 Arrow.prototype.move = function() {
